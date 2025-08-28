@@ -1,4 +1,5 @@
-FROM python:3.11-slim
+# Pin Python 3.10 because pythonocc-core wheels are available for 3.10 (not 3.11)
+FROM python:3.10-slim
 
 # System libs required by pythonocc-core wheels
 RUN apt-get update && apt-get install -y --no-install-recommends \
