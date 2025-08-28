@@ -13,7 +13,7 @@ from OCC.Core.GProp import GProp_GProps
 from OCC.Core.Bnd import Bnd_Box
 from OCC.Core.BRepBndLib import brepbndlib_Add
 
-app = FastAPI(title="TW 3D AI Quote API (pythonocc-core, py310)")
+app = FastAPI(title="TW 3D AI Quote API (conda build)")
 
 NETLIFY_ORIGIN = os.getenv("NETLIFY_ORIGIN", "*")
 app.add_middleware(
