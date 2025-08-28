@@ -1,4 +1,9 @@
-fastapi==0.111.0
-uvicorn[standard]==0.30.0
-python-multipart==0.0.9
-pythonocc-core==7.7.0
+name: tw3d-api
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - fastapi=0.111.0
+  - uvicorn=0.30.0
+  - python-multipart=0.0.9
+  - pythonocc-core=7.7.0
