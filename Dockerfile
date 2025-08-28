@@ -1,18 +1,12 @@
-# Pin Python 3.10 because pythonocc-core wheels are available for 3.10 (not 3.11)
-FROM python:3.10-slim
+# Use micromamba to install pythonocc-core from conda-forge
+FROM mambaorg/micromamba:1.5.8
 
-# System libs required by pythonocc-core wheels
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    ca-certificates \
-    libgl1 \
-    libglu1-mesa \
-    && rm -rf /var/lib/apt/lists/*
+# Create env from environment.yml
+COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+RUN micromamba install -y -n base -f /tmp/environment.yml && micromamba clean -a -y
 
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --chown=$MAMBA_USER:$MAMBA_USER app.py .
 
-COPY app.py .
 EXPOSE 8000
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/usr/local/bin/python", "-m", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
